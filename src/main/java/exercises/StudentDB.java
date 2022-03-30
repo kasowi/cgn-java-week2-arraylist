@@ -3,67 +3,51 @@ package exercises;
 import model.Student;
 
 import java.util.Arrays;
+giimport java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class StudentDB {
+    private List<Student> students = new ArrayList<>();
 
-    private Student[] students;
-
-    public StudentDB(Student[] insertedStudents) {
-        this.students = insertedStudents;
+    public StudentDB() {
     }
 
-     public Student[] getAllStudents() {
+     public List<Student> getAllStudents() {
         return students;
     }
 
     @Override
     public String toString() {
-
-        return "exercises.StudentDB{" +
-                "students=" + Arrays.toString(students) +
+        return "StudentDB{" +
+                "students=" + students +
                 '}';
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public Student getRandomStudent() {
 
         double randomDouble = Math.random();
-        return students[(int) (randomDouble * students.length)];
+        return students.get((int) (randomDouble * students.size()));
     }
+
 
     public void add(Student newStudent) {
-        Student[] newStudents = Arrays.copyOf(students, students.length + 1);
-        newStudents[newStudents.length - 1] = newStudent;
-        this.students = newStudents;
+        students.add(newStudent);
     }
 
-    public void remove(int id) {
-
-        for (int i = 0; i < students.length; i++) {
-            if (students[i].getId() == id) {
-                // Remove and create new array
-                Student[] newStudents = Arrays.copyOf(students, students.length - 1);
-                System.arraycopy(students, 0, newStudents, 0, i);
-                System.arraycopy(students, i + 1, newStudents, i, students.length - (i + 1));
-                this.students = newStudents;
+    public Student remove(int id) {
+        Student student = null;
+        Student studentsbuffer;
+        for (int i = 0; i < students.size(); i++) {
+            studentsbuffer = students.get(i);
+            if (studentsbuffer.getId() == id) {
+               student = studentsbuffer;
+                students.remove(studentsbuffer);
             }
-        }
+
     }
+        return student;
+    }
+
 
 }
